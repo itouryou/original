@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      地域一覧
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">地域一覧</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngFor="let p of prefecture; let idx = index">
+    <ion-item>
+      <ion-card-title (click)="selectPrefecture(idx)">{{p.lavel}}</ion-card-title>
+    </ion-item>
+    <div *ngIf="select == 0 && p.lavel == '北海道'">
+      <div *ngFor="let c of city; trackBy: trackByFn" routerLink="/article/{{c.id}}">
+        <ion-item *ngIf="c.id.substr(0, 2) == '01'">{{ c.name }}</ion-item>
+      </div>
+    </div>
+    <div *ngIf="select == 1 && p.lavel == '青森県'">
+      <div *ngFor="let c of city; trackBy: trackByFn" routerLink="/article/{{c.id}}">
+        <ion-item *ngIf="c.id.substr(0, 2) == '02'">{{ c.name }}</ion-item>
+      </div>
+    </div>
+    <div *ngIf="select == 2 && p.lavel == '東京都'">
+      <div *ngFor="let c of city; trackBy: trackByFn" routerLink="/article/{{c.id}}">
+        <ion-item *ngIf="c.id.substr(0, 2) == '13'">{{ c.name }}</ion-item>
+      </div>
+    </div>
+  </ion-card>
+
+  <!-- <ion-card *ngFor="let t of city; trackBy: trackByFn" routerLink="/article/{{t.id}}">
+    <ion-card-header>
+      <ion-card-subtitle>{{t.id}}</ion-card-subtitle>
+      <ion-card-title>{{t.name}}</ion-card-title>
+    </ion-card-header>
+  </ion-card> -->
+
+</ion-content>
