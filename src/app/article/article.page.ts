@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { OriginalService } from '../original.service';
+import {ICompany, OriginalService} from '../shared/services/original/original.service';
 
 @Component({
   selector: 'app-article',
@@ -10,15 +10,7 @@ import { OriginalService } from '../original.service';
 })
 export class ArticlePage implements OnInit {
   id: string;
-  company: {
-    name: string;
-    corporationId: string;
-    postalCode: string;
-    add: string;
-    president: string;
-    capital: string;
-    sales: string;
-  }[] = [];
+  company: ICompany[] = [];
 
   constructor(public route: ActivatedRoute, public orijinal: OriginalService) {}
 
@@ -30,17 +22,7 @@ export class ArticlePage implements OnInit {
 
   ionViewDidEnter() {
     this.orijinal.getCompany(this.id).subscribe((res) => {
-      for (let c of JSON.parse('' + res)['results']) {
-        this.company.push({
-          name: c['name'],
-          corporationId: `${c['corporationId']}`.replace(/null/g, ''),
-          postalCode: `${c['postalCode']}`.replace(/null/g, ''),
-          add: `${c['prefecture']} ${c['city']} ${c['town']} ${c['block']} ${c['building']}`.replace(/null/g, ''),
-          president: `${c['presidentPosition']} ${c['presidentName']}`.replace(/null/g, ''),
-          capital: `${c['capital']}`.replace(/null/g, ''),
-          sales: `${c['sales']}`.replace(/null/g, ''),
-        });
-      }
+      this.company = res;
     });
   }
 }
