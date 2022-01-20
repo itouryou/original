@@ -3,21 +3,20 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>会社一覧
-    </ion-title>
+    <ion-title>会社一覧 </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card *ngFor="let c of company">
     <ion-card-header>
-      <ion-card-title>{{c.name}}</ion-card-title>
-      <ion-card-subtitle *ngIf="!(c.corporationId == '')">法人番号:{{c.corporationId}}</ion-card-subtitle>
-      <ion-card-subtitle *ngIf="!(c.postalCode == '')">郵便番号:{{c.postalCode}}</ion-card-subtitle>
-      <ion-card-subtitle *ngIf="!(c.add == '')">住所:{{c.add}}</ion-card-subtitle>
-      <ion-card-subtitle *ngIf="!(c.president == '')">代表者:{{c.president}}</ion-card-subtitle>
-      <ion-card-subtitle *ngIf="!(c.capital == '')">資本金:{{c.capital}}円</ion-card-subtitle>
-      <ion-card-subtitle *ngIf="!(c.sales == '')">売上高:{{c.sales}}百万円</ion-card-subtitle>
+      <ion-card-title>{{ c.name }}</ion-card-title>
+      <ion-card-subtitle *ngIf="!(c.corporationId == '')">法人番号:{{ c.corporationId }}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="!(c.postalCode == '')">郵便番号:{{ c.postalCode }}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="!(c.add == '')">住所:{{ c.add }}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="!(c.president == '')">代表者:{{ c.president }}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="!(c.capital == '')">資本金:{{ c.capital }}円</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="!(c.sales == '')">売上高:{{ c.sales }}百万円</ion-card-subtitle>
     </ion-card-header>
-    </ion-card>
+  </ion-card>
 </ion-content>

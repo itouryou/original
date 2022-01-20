@@ -9,12 +9,7 @@ import { ArticlePageRoutingModule } from './article-routing.module';
 import { ArticlePage } from './article.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ArticlePageRoutingModule
-  ],
-  declarations: [ArticlePage]
+  imports: [CommonModule, FormsModule, IonicModule, ArticlePageRoutingModule],
+  declarations: [ArticlePage],
 })
 export class ArticlePageModule {}
