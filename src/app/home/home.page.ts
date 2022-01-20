@@ -1,66 +1,48 @@
 import { Component } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { OriginalService } from '../original.service';
+import { OriginalService } from '../shared/services/original/original.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-
 export class HomePage {
-  city: {
+  public city: {
     id: string;
     name: string;
   }[] = [];
-  select: number = 0;
-  prefecture = [
-    { lavel: "北海道" },
-    { lavel: "青森県" },
-    { lavel: "東京都" }
-  ];
+  public select = 0;
+  public prefecture = [{ lavel: '北海道' }, { lavel: '青森県' }, { lavel: '東京都' }];
 
-  constructor(
-    public original: OriginalService,
-    public loadingController: LoadingController,
-  ) {
-    this.prefecture;
-    this.select;
+  constructor(private original: OriginalService, private loadingController: LoadingController) {
   }
 
   async ionViewDidEnter() {
-    const loading = await this.loadingController.create({
-      message: 'Loading...',
-    });
-    if (!this.city.length) {
-      await loading.present();
-    }
-
-    this.original.getCity().subscribe(res => {
-      for (let post of JSON.parse("[" + res + "]")) {
-        for (let data of post['data']) {
-          let cal_id: number = 0;
+    this.city = [];
+    this.original.getCity(!this.city.length).subscribe(async (res) => {
+      for (const post of JSON.parse('[' + res + ']')) {
+        for (const data of post.data) {
+          let calId = 0;
           for (let j = 0; j < 5; j++) {
-            cal_id += data["id"][j] * (6 - j);
+            calId += data.id[j] * (6 - j);
           }
-          cal_id = 11 - cal_id % 11;
-          if (String(cal_id).length == 2) {
-            cal_id = Number(String(cal_id)[1]);
+          calId = 11 - (calId % 11);
+          if (String(calId).length === 2) {
+            calId = Number(String(calId)[1]);
           }
-          this.city.push({id: data["id"] + cal_id, name: data["name"]});
+          this.city.push({ id: data.id + calId, name: data.name });
         }
       }
-    })
-    loading.dismiss();
+    });
   }
 
   trackByFn(index, item): number {
     return item.ID;
   }
 
-  selectPrefecture(idx): void{
+  selectPrefecture(idx: number): void {
     this.select = idx;
     console.log(idx);
   }
-
 }
